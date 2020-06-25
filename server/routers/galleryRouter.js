@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const GalleryController = require('../controllers/galleryController');
 const PhotoController = require('../controllers/photoController');
+const cors = require('./cors');
 
 const upload = multer({
     limits: {
@@ -18,54 +19,59 @@ const upload = multer({
 const galleryRouter = express.Router();
 
 galleryRouter.route('/')
-    .get(GalleryController.findGalleries)
-    .post(GalleryController.createGallery)
-    .put((req, res) => {
+    .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+    .get(cors.cors, GalleryController.findGalleries)
+    .post(cors.corsWithOptions, GalleryController.createGallery)
+    .put(cors.corsWithOptions, (req, res) => {
         res.statusCode = 403;
         res.end('PUT operation not supported on /galleries');
     })
-    .delete(GalleryController.deleteGalleries);
+    .delete(cors.corsWithOptions, GalleryController.deleteGalleries);
 
 galleryRouter.route('/:galleryId')
-    .get(GalleryController.findGalleryById)
-    .post((req, res) => {
+    .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+    .get(cors.cors, GalleryController.findGalleryById)
+    .post(cors.corsWithOptions, (req, res) => {
         res.statusCode = 403;
         res.end(`POST operation not supported on /galleries/${req.params.galleryId}`);
     })
-    .put(GalleryController.findGalleryByIdAndUpdate)
-    .delete(GalleryController.findGalleryByIdAndDelete);
+    .put(cors.corsWithOptions, GalleryController.findGalleryByIdAndUpdate)
+    .delete(cors.corsWithOptions, GalleryController.findGalleryByIdAndDelete);
 
 galleryRouter.route('/:galleryId/photos')
-    .get(PhotoController.findPhotosByGalleryId)
-    .post(upload.single('data'), PhotoController.uploadPhoto)
-    .put((req, res) => {
+    .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+    .get(cors.cors, PhotoController.findPhotosByGalleryId)
+    .post(cors.corsWithOptions, upload.single('data'), PhotoController.uploadPhoto)
+    .put(cors.corsWithOptions, (req, res) => {
         res.statusCode = 403;
         res.end(`PUT operation not supported on /galleries/${req.params.galleryId}/photos`);
     })
-    .delete(PhotoController.findPhotosByGalleryIdAndDelete);
+    .delete(cors.corsWithOptions, PhotoController.findPhotosByGalleryIdAndDelete);
 
 // routes below are exact same as /photos/:photoId
 galleryRouter.route('/:galleryId/photos/:photoId')
-    .get(PhotoController.findPhotoById)
-    .post((req, res) => {
+    .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+    .get(cors.cors, PhotoController.findPhotoById)
+    .post(cors.corsWithOptions, (req, res) => {
         res.statusCode = 403;
         res.end(`POST operation not supported on /galleries/${req.params.galleryId}/photos/${req.params.photoId}`);
     })
-    .put(PhotoController.findPhotoByIdAndUpdate)
-    .delete(PhotoController.findPhotoByIdAndDelete);
+    .put(cors.corsWithOptions, PhotoController.findPhotoByIdAndUpdate)
+    .delete(cors.corsWithOptions, PhotoController.findPhotoByIdAndDelete);
 
 // routes below are exact same as /photos/:photoId/meta
 galleryRouter.route('/:galleryId/photos/:photoId/meta')
-    .get((req, res, next) => PhotoController.findPhotoById(req, res, next, meta = true))
-    .post((req, res) => {
+    .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+    .get(cors.cors, (req, res, next) => PhotoController.findPhotoById(req, res, next, meta = true))
+    .post(cors.corsWithOptions, (req, res) => {
         res.statusCode = 403;
         res.end(`POST operation not supported on /galleries/${req.params.galleryId}/photos/${req.params.photoId}/meta`);
     })
-    .put((req, res) => {
+    .put(cors.corsWithOptions, (req, res) => {
         res.statusCode = 403;
         res.end(`PUT operation not supported on /galleries/${req.params.galleryId}/photos/${req.params.photoId}/meta`);
     })
-    .delete((req, res) => {
+    .delete(cors.corsWithOptions, (req, res) => {
         res.statusCode = 403;
         res.end(`DELETE operation not supported on /galleries/${req.params.galleryId}/photos/${req.params.photoId}/meta`);
     });

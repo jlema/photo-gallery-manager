@@ -1,10 +1,13 @@
+// eslint-disable-next-line
+
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { beginAddPhoto } from '../actions/photos';
 import { useInput } from '../utils/useInputHook';
+import { startListGalleries } from '../actions/galleries';
 
-const UploadForm = ({ errors, dispatch }) => {
+const UploadForm = ({ errors, galleries, dispatch }) => {
   const { value: name, bind: bindName, reset: resetName } = useInput('');
   const { value: caption, bind: bindCaption, reset: resetCaption } = useInput('');
   const { value: gallery, bind: bindGallery, reset: resetGallery } = useInput('5ef2bd3f63895e0b48e30cb2');
@@ -12,14 +15,23 @@ const UploadForm = ({ errors, dispatch }) => {
   const [data, setData] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErroMsg] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setErroMsg(''); // reset error message on page load
+    setIsLoading(true);
+    dispatch(startListGalleries());
+  }, []);
 
   useEffect(() => {
     setErroMsg(errors);
   }, [errors]);
 
   useEffect(() => {
-    setErroMsg(''); // reset error message on page load
-  }, []);
+    if (galleries.length > 0) {
+      setIsLoading(false);
+    }
+  }, [galleries]);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -53,7 +65,13 @@ const UploadForm = ({ errors, dispatch }) => {
         <Form.Group>
           <Form.Label>Select gallery to which to add photo</Form.Label>
           <Form.Control as="select" {...bindGallery}>
-            <option value="5ef2bd3f63895e0b48e30cb2">default - This is the default gallery</option>
+            {isLoading ? (
+              <option className="loading-msg centered-message">Loading...</option>
+            ) : (
+                galleries.map((gallery) =>
+                  <option value={gallery._id}>{gallery.name}: {gallery.title}</option>
+                )
+              )}
           </Form.Control>
           <Form.Label>Enter photo name</Form.Label>
           <Form.Control type="text" name="name" {...bindName} />
@@ -76,6 +94,7 @@ const UploadForm = ({ errors, dispatch }) => {
 };
 
 const mapStateToProps = (state) => ({
+  galleries: state.galleries || [],
   photos: state.photos || [],
   errors: state.errors || {}
 });

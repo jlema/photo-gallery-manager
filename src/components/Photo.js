@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-const Photo = ({ id }) => {
+const Photo = ({ match, name, caption, id }) => {
+  id = id ? id : match.params.photoId;
   return (
     <Card className="photo">
       <Card.Img
@@ -9,6 +10,11 @@ const Photo = ({ id }) => {
         src={`/photos/${id}`}
         alt="Photo"
       />
+      <Card.Body>
+        <Card.Title>{name}</Card.Title>
+        <Card.Subtitle>{caption}</Card.Subtitle>
+        <Card.Link href={`/photo/${id}`}>Full Size Photo</Card.Link>
+      </Card.Body>
     </Card>
   );
 };

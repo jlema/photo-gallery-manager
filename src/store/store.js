@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import photosReducer from '../reducers/photos';
+import galleriesReducer from '../reducers/galleries';
 import errorsReducer from '../reducers/errors';
 import thunk from 'redux-thunk';
 
@@ -8,6 +9,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   combineReducers({
     photos: photosReducer,
+    galleries: galleriesReducer,
     errors: errorsReducer
   }),
   composeEnhancers(applyMiddleware(thunk))

@@ -2,13 +2,15 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+const cors = require('cors');
 
 const photoRouter = require('./routers/photoRouter');
 const galleryRouter = require('./routers/galleryRouter');
 require('./db/connection');
 
-const app = express();
 const PORT = process.env.PORT || 5000;
+const app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

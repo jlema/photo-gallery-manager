@@ -6,10 +6,10 @@ const Header = () => (
     <h1>Photo Gallery App</h1>
     <div className="links">
       <NavLink to="/" className="link">
-        Home
+        Photo Upload
       </NavLink>
-      <NavLink to="/gallery" className="link">
-        Gallery
+      <NavLink to="/gallery-list" className="link">
+        Galleries
       </NavLink>
     </div>
   </header>
