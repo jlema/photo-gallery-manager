@@ -10,7 +10,7 @@ export const beginAddPhoto = (name, caption, data, gallery) => {
       formData.append('caption', caption);
       formData.append('data', data);
       formData.append('gallery', gallery);
-      await axios.post(`${baseUrl}/galleries/${gallery}/photos`, formData, {
+      await axios.post(`${baseUrl}galleries/${gallery}/photos`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -24,7 +24,7 @@ export const beginAddPhoto = (name, caption, data, gallery) => {
 export const startLoadPhotos = (galleryId) => {
   return async (dispatch) => {
     try {
-      const photos = await axios.get(`${baseUrl}/galleries/${galleryId}/photos`);
+      const photos = await axios.get(`${baseUrl}galleries/${galleryId}/photos`);
       dispatch(loadPhotos(photos.data));
     } catch (error) {
       error.response && dispatch(getErrors(error.response.data));
