@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
-import HomePage from '../components/HomePage';
+import PhotoUpload from '../components/PhotoUpload';
 import Gallery from '../components/Gallery';
 import GalleryList from '../components/GalleryList';
 import Photo from '../components/Photo';
@@ -13,10 +13,10 @@ const AppRouter = () => (
       <Header />
       <div className="main-content">
         <Switch>
-          <Route component={HomePage} path="/" exact={true} />
+          <Route component={GalleryList} path="/" exact={true} />
+          <Route component={PhotoUpload} path="/photo-upload" />
           <Route component={Gallery} path="/gallery/:galleryId" />
           <Route component={Photo} path="/photo/:photoId" />
-          <Route component={GalleryList} path="/gallery-list" />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

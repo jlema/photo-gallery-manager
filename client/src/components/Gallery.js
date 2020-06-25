@@ -1,13 +1,13 @@
 // eslint-disable-next-line
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Jumbotron } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { startLoadPhotos } from '../actions/photos';
 import { startListGalleries } from '../actions/galleries';
 import Photo from './Photo';
 
-const Gallery = ({ match, errors, photos, galleries, dispatch }) => {
+const Gallery = ({ match, galleries, photos, errors, dispatch }) => {
   const [arePhotosLoading, setPhotosLoading] = useState(false);
   const [areGalleriesLoading, setGalleriesLoading] = useState(false);
   const [chosenGallery, setChosenGallery] = useState({});
@@ -61,7 +61,6 @@ const Gallery = ({ match, errors, photos, galleries, dispatch }) => {
 const mapStateToProps = (state) => ({
   galleries: state.galleries || [],
   photos: state.photos || [],
-  gallery: state.gallery || {},
   errors: state.errors || {}
 });
 

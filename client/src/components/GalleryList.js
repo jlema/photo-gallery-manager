@@ -27,7 +27,7 @@ const GalleryList = ({ errors, galleries, dispatch }) => {
                 <div className="loading-msg centered-message">Loading...</div>
             ) : (
                     galleries.map((gallery) =>
-                        <li>{gallery.name}: <a href={`/gallery/${gallery._id}/`}>{gallery.title}</a></li>
+                        <li key={gallery._id}>{gallery.name}: <a href={`/gallery/${gallery._id}/`}>{gallery.title}</a></li>
                     )
                 )}
         </div>

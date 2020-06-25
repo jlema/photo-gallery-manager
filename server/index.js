@@ -3,10 +3,12 @@ require('dotenv').config({ path: path.resolve(process.cwd(), 'server', '.env') }
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
+const passport = require('passport');
 const cors = require('cors');
 
 const photoRouter = require('./routers/photoRouter');
 const galleryRouter = require('./routers/galleryRouter');
+const userRouter = require('./routers/userRouter');
 require('./db/connection');
 
 const PORT = process.env.PORT;
@@ -21,12 +23,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(passport.initialize());
+
 // Priority serve any static files.
 app.use(express.static(path.join(__dirname, '../client', 'build')));
 
 // Answer API requests.
 app.use('/galleries', galleryRouter);
 app.use('/photos', photoRouter);
+app.use('/users', userRouter);
 
 // All remaining requests return the React app, so it can handle routing.
 app.use((req, res, next) => {
