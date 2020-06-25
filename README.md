@@ -1,68 +1,160 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Photo Gallery Manager Project
 
-## Available Scripts
+Submitted by Juan Lema as part of the requirements for the Honor Certificate for graduation from the Full Stack Development bootcamp at Nucamp in June 2020.
 
-In the project directory, you can run:
+## Project Overview
 
-### `yarn start`
+The inspiration for the Photo Gallery Manager App project was a request from my partner to build a simple way to create galleries and upload photos for her photography and videography portfolio.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+During the Bootstrap course I built a copy of her current portfolio site (live at [https://jlema.github.io/storytellingPortfolio/](https://jlema.github.io/storytellingPortfolio/)) so this could be seen as an extension of that project, but using the MERN stack instead of simply Bootstrap.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The current live version of the project can be viewed at: [https://photo-gallery-manager.herokuapp.com/](https://photo-gallery-manager.herokuapp.com/)
 
-### `yarn test`
+This project was based on the [Create a Photo Gallery App Using the MERN stack tutorial](https://levelup.gitconnected.com/create-a-photo-gallery-app-using-mern-stack-826d7d926232) by Yogesh Chavan.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Goals
 
-### `yarn build`
+The Photo Gallery Manager App project had the following goals:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Develop a full-fledged REST API for managing galleries and photos.
+2. Implement a simple user interface to demonstrate some of the main features of the REST API:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- Photo upload.
+- Gallery visualization.
+- Individual photo visualization.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Include the following features:
 
-### `yarn eject`
+- Support for multiple galleries, and multiple photos per gallery.
+- Rich database schema for photos and galleries.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. Modularization of server code using the Express Model -\&gt; Router -\&gt; Controller code structure.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Learning Expectations
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+As part of the project, I decided I wanted to learn about and apply the following technologies or techniques:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Axios (for HTTP requests.)
+- Functional components and React hooks (together with Redux.)
+- React-Bootstrap (as an alternative to reactstrap.)
+- Storing and retrieving images from and to MongoDB (as an alternative to cloud storage.)
+- Deploying the backend and frontend apps to Heroku as a single dyno.
 
-## Learn More
+## Technologies Used
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The following technologies were used during this project. Some of these were learned during the Bootcamp and some others were learned specifically for this project. Please note this is not an all-inclusive list:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Axios | CORS |
+| --- | --- |
+| SASS | React |
+| React-Bootstrap | Redux |
+| Express | Node JS |
+| MongoDB | Mongoose |
+| Yarn | Heroku |
+| mLab | Pug |
+| Postman | Visual Studio Code |
 
-### Code Splitting
+## List of REST API endpoints
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+These can be tested live at [https://photo-gallery-manager.herokuapp.com/](https://photo-gallery-manager.herokuapp.com/)
 
-### Analyzing the Bundle Size
+In case the database is empty or corrupted, it can be restored from the folder inside the repo /server/db/dump.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Gallery endpoints
 
-### Making a Progressive Web App
+/galleries/
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- GET: returns all galleries metadata
+- POST: creates a new gallery with no photos
+- PUT: Unsupported
+- DELETE: deletes all galleries
 
-### Advanced Configuration
+/galleries/:galleryId
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- GET: returns a single gallery metadata
+- POST: Unsupported
+- PUT: updates name, title, or description for a gallery
+- DELETE: deletes a gallery
 
-### Deployment
+/galleries/:galleryId/photos
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+- GET: returns metadata for all photos belonging to a gallery
+- POST: uploads a single photo to the gallery
+- PUT: Unsupported
+- DELETE: deletes all photos belonging to a gallery
 
-### `yarn build` fails to minify
+/galleries/:galleryId/photos/:photoId
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- GET: returns photo
+  - Note: image data is returned on this endpoint
+- POST: Unsupported
+- PUT: updates name, caption, (data) or gallery for a photo.
+  - Note: mostly used for name and caption
+- DELETE: deletes photo
+
+/galleries/:galleryId/photos/:photoId/meta
+
+- GET: returns only photo metadata
+- POST: Unsupported
+- PUT: Unsupported
+- DELETE: Unsupported
+
+### Photo endpoints
+
+/photos/
+
+- GET: returns all photos metadata
+- POST: Unsupported
+- PUT: Unsupported
+- DELETE: deletes all photos
+
+/ photos /:photoId
+
+- Same as /galleries/:galleryId/photos/:photoId
+
+/photos/:photoId/meta
+
+- Same as /galleries/:galleryId/photos/:photoId/meta
+
+## Next Steps
+
+There are a lot of things that could be added to this project. Here&#39;s a laundry list of some possible improvements:
+
+1. Additions to the user interface:
+
+- Allow users to sign up for an account and authenticate.
+- Allow users to create / edit / delete galleries.
+- Allow users to edit / delete photos.
+- Allow users to transfer photos from one gallery to another.
+- Overall UX beautification.
+
+2. Updates to the REST API:
+
+- Add authentication and restrict different endpoints like delete to only admins.
+- Allow users to browse to galleries or photos by name instead of ID.
+  - The schema was designed for this, as names are required to be unique.
+- Utilize AWS S3 or Cloudinary as a cloud storage solution instead of storing images to mongoDB.
+- Remove unused endpoint /galleries/:galleryId/photos/:photoId/meta
+
+## Gratitude
+
+Great appreciation goes to Yogesh Chavan for providing the tutorial I used as a baseline for this project, and to the staff and instructors at Nucamp bootcamp for their support and care.
+
+## References
+
+React-Bootstrap documentation: [https://react-bootstrap.github.io/components/](https://react-bootstrap.github.io/components/)
+
+Using the Effect Hook: [https://reactjs.org/docs/hooks-effect.html](https://reactjs.org/docs/hooks-effect.html)
+
+Model-Routers-Controllers-Services code structure : [https://riptutorial.com/node-js/example/32332/model-routes-controllers-services-code-structure](https://riptutorial.com/node-js/example/32332/model-routes-controllers-services-code-structure)
+
+Consume a JSON REST API with React and Axios: [https://www.techiediaries.com/react-axios/](https://www.techiediaries.com/react-axios/)
+
+Using Async/await in Express: [https://zellwk.com/blog/async-await-express/](https://zellwk.com/blog/async-await-express/)
+
+Heroku Node.js Support: [https://devcenter.heroku.com/articles/nodejs-support](https://devcenter.heroku.com/articles/nodejs-support)
+
+create-react-app with a Node server on Heroku: [https://github.com/mars/heroku-cra-node](https://github.com/mars/heroku-cra-node)
+
+react-hooks-cheatsheet: [https://react-hooks-cheatsheet.com/examples/fetching-data](https://react-hooks-cheatsheet.com/examples/fetching-data)
+
