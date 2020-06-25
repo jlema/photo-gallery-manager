@@ -2,12 +2,15 @@ import axios from 'axios';
 import { BASE_API_URL } from '../utils/constants';
 import { getErrors } from './errors';
 
-export const beginAddPhoto = (photo) => {
+export const beginAddPhoto = (name, caption, data, gallery) => {
   return async (dispatch) => {
     try {
       const formData = new FormData();
-      formData.append('photo', photo);
-      await axios.post(`${BASE_API_URL}/photos`, formData, {
+      formData.append('name', name);
+      formData.append('caption', caption);
+      formData.append('data', data);
+      formData.append('gallery', gallery);
+      await axios.post(`${BASE_API_URL}/galleries/${gallery}/photos`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -18,10 +21,10 @@ export const beginAddPhoto = (photo) => {
   };
 };
 
-export const startLoadPhotos = () => {
+export const startLoadPhotos = (galleryId) => {
   return async (dispatch) => {
     try {
-      const photos = await axios.get(`${BASE_API_URL}/photos`);
+      const photos = await axios.get(`${BASE_API_URL}/galleries/${galleryId}/photos`);
       dispatch(loadPhotos(photos.data));
     } catch (error) {
       error.response && dispatch(getErrors(error.response.data));

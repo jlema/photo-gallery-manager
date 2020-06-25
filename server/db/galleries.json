@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "5ef2bd3f63895e0b48e30cb2"
+  },
+  "name": "default",
+  "title": "This is the default gallery",
+  "description": "This is the gallery that is used by default if no other is created"
+},{
+  "_id": {
+    "$oid": "5ef387379cf45a86bc3aab00"
+  },
+  "name": "africa",
+  "title": "From Africa with lots of love",
+  "description": "Photos of cute animals from Africa"
+},{
+  "_id": {
+    "$oid": "5ef3c132e9eb318df8b13336"
+  },
+  "name": "cats",
+  "title": "So many kittens!",
+  "description": "Cuteness overload. And lots of meow."
+}]
