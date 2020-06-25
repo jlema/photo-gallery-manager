@@ -1,6 +1,8 @@
+const path = require('path')
+require('dotenv').config({ path: path.resolve(process.cwd(), 'server', '.env') });
 const mongoose = require('mongoose');
 
-const url = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/photo_gallery';
+const url = process.env.MONGODB_URI;
 mongoose.connect(url, {
   useCreateIndex: true,
   useFindAndModify: false,

@@ -1,48 +1,28 @@
 {
-  "name": "photo-gallery",
-  "version": "0.1.0",
+  "name": "server",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.19.2",
-    "bootstrap": "^4.4.1",
-    "node-sass": "^4.13.1",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.0.0",
-    "react-dom": "^16.13.1",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
-  },
   "scripts": {
-    "start-client": "react-scripts start",
+    "start": "node server/index.js",
+    "build": "cd client/ && yarn install && yarn build",
     "start-server": "nodemon server/index.js",
-    "build": "yarn install && react-scripts build && cd server/ && yarn install",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start": "node server/index.js"
+    "start-client": "cd client/ && yarn start"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "mongoose": "^5.9.7",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "pug": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.3"
   },
-  "proxy" : "http://localhost:5000"
+	"engines": {
+		"node": "12.9.0",
+		"yarn": "1.22.4"
+	}
 }
