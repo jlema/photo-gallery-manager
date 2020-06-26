@@ -42,7 +42,7 @@ galleryRouter.route('/:galleryId')
 galleryRouter.route('/:galleryId/photos')
     .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
     .get(cors.cors, PhotoController.findPhotosByGalleryId)
-    .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, upload.single('data'), PhotoController.uploadPhoto)
+    .post(cors.corsWithOptions, upload.single('data'), PhotoController.uploadPhoto)
     .put(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res) => {
         res.statusCode = 403;
         res.end(`PUT operation not supported on /galleries/${req.params.galleryId}/photos`);

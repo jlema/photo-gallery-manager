@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { loginUser, logoutUser } from '../actions/auth';
 import { Modal, Form, Button } from 'react-bootstrap';

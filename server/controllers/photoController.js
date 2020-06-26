@@ -95,7 +95,6 @@ exports.findPhotosByGalleryIdAndDelete = (req, res, next) => {
 
 exports.uploadPhoto = (req, res, next) => {
     req.body.gallery = req.params.galleryId;
-    console.log(req.body);
     const photo = new Photo(req.body);
     const file = req.file.buffer;
     photo.data = file;

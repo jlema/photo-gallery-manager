@@ -1,10 +1,10 @@
 import React from 'react';
 import UploadForm from './UploadForm';
 
-const HomePage = () => (
+const PhotoUpload = () => (
   <div className="home-page">
     <UploadForm />
   </div>
 );
 
-export default HomePage;
+export default PhotoUpload;
