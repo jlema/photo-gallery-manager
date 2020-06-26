@@ -10,6 +10,8 @@ During the Bootstrap course I built a copy of her current portfolio site (live a
 
 The current live version of the project can be viewed at: [https://photo-gallery-manager.herokuapp.com/](https://photo-gallery-manager.herokuapp.com/)
 
+The repository to the project is available at: [https://github.com/jlema/photo-gallery-manager/](https://github.com/jlema/photo-gallery-manager/)
+
 This project was based on the [Create a Photo Gallery App Using the MERN stack tutorial](https://levelup.gitconnected.com/create-a-photo-gallery-app-using-mern-stack-826d7d926232) by Yogesh Chavan.
 
 ## Project Goals
@@ -17,8 +19,12 @@ This project was based on the [Create a Photo Gallery App Using the MERN stack t
 The Photo Gallery Manager App project had the following goals:
 
 1. Develop a full-fledged REST API for managing galleries and photos.
+
+- Add authentication and restrict different endpoints like delete to only admins.
+
 2. Implement a simple user interface to demonstrate some of the main features of the REST API:
 
+- User authentication.
 - Photo upload.
 - Gallery visualization.
 - Individual photo visualization.
@@ -29,6 +35,7 @@ The Photo Gallery Manager App project had the following goals:
 - Rich database schema for photos and galleries.
 
 4. Modularization of server code using the Express Model -\&gt; Router -\&gt; Controller code structure.
+5. Deployment to a live &#39;production&#39; environment in the cloud so other people can test the app.
 
 ## Learning Expectations
 
@@ -54,6 +61,25 @@ The following technologies were used during this project. Some of these were lea
 | mLab | Pug |
 | Postman | Visual Studio Code |
 
+## Next Steps
+
+There are a lot of things that could be added to this project. Here&#39;s a laundry list of some possible improvements:
+
+1. Additions to the user interface:
+
+- Allow users to sign up for an account.
+- Allow users to create / edit / delete their own galleries.
+- Allow users to edit / delete photos (maybe favorite.)
+- Allow users to transfer photos from one gallery to another.
+- Overall UX beautification.
+
+2. Updates to the REST API:
+
+- Allow users to browse to galleries or photos by name instead of ID.
+  - The schema was designed for this, as names are required to be unique.
+- Utilize AWS S3 or Cloudinary as a cloud storage solution instead of storing images to mongoDB.
+- Remove unused endpoint /galleries/:galleryId/photos/:photoId/meta
+
 ## List of REST API endpoints
 
 These can be tested live at [https://photo-gallery-manager.herokuapp.com/](https://photo-gallery-manager.herokuapp.com/)
@@ -62,39 +88,65 @@ In case the database is empty or corrupted, it can be restored from the folder i
 
 ### Gallery endpoints
 
+/users/
+
+- **GET: returns all users details**
+- POST: Unsupported
+- PUT: Unsupported
+- DELETE: Unsupported
+
+/users/signup
+
+- GET: Unsupported
+- **POST: registers a new user account**
+- PUT: Unsupported
+- DELETE: Unsupported
+
+/users/login
+
+- GET: Unsupported
+- **POST: logs in (authenticates) user via credentials**
+- PUT: Unsupported
+- DELETE: Unsupported
+
+/users/logout
+
+- **GET: logs out a user**
+- POST: Unsupported
+- PUT: Unsupported
+- DELETE: Unsupported
+
 /galleries/
 
-- GET: returns all galleries metadata
-- POST: creates a new gallery with no photos
+- **GET: returns all galleries metadata**
+- **POST: creates a new gallery with no photos**
 - PUT: Unsupported
-- DELETE: deletes all galleries
+- **DELETE: deletes all galleries**
 
 /galleries/:galleryId
 
-- GET: returns a single gallery metadata
+- **GET: returns a single gallery metadata**
 - POST: Unsupported
-- PUT: updates name, title, or description for a gallery
+- **PUT: updates name, title, or description for a gallery**
 - DELETE: deletes a gallery
 
 /galleries/:galleryId/photos
 
-- GET: returns metadata for all photos belonging to a gallery
-- POST: uploads a single photo to the gallery
+- **GET: returns metadata for all photos belonging to a gallery**
+- **POST: uploads a single photo to the gallery**
 - PUT: Unsupported
-- DELETE: deletes all photos belonging to a gallery
+- **DELETE: deletes all photos belonging to a gallery**
 
 /galleries/:galleryId/photos/:photoId
 
-- GET: returns photo
-  - Note: image data is returned on this endpoint
+- **GET: returns photo, including image data**
 - POST: Unsupported
-- PUT: updates name, caption, (data) or gallery for a photo.
-  - Note: mostly used for name and caption
+- **PUT: updates name, caption, (data) or gallery for a photo.**
 - DELETE: deletes photo
 
 /galleries/:galleryId/photos/:photoId/meta
 
-- GET: returns only photo metadata
+- **GET: returns only photo metadata (no image data.)**
 - POST: Unsupported
 - PUT: Unsupported
 - DELETE: Unsupported
@@ -103,10 +155,10 @@ In case the database is empty or corrupted, it can be restored from the folder i
 
 /photos/
 
-- GET: returns all photos metadata
+- **GET: returns all photos metadata (no image data.)**
 - POST: Unsupported
 - PUT: Unsupported
-- DELETE: deletes all photos
+- **DELETE: deletes all photos**
 
 / photos /:photoId
 
@@ -116,29 +168,9 @@ In case the database is empty or corrupted, it can be restored from the folder i
 
 - Same as /galleries/:galleryId/photos/:photoId/meta
 
-## Next Steps
-
-There are a lot of things that could be added to this project. Here&#39;s a laundry list of some possible improvements:
-
-1. Additions to the user interface:
-
-- Allow users to sign up for an account and authenticate.
-- Allow users to create / edit / delete galleries.
-- Allow users to edit / delete photos.
-- Allow users to transfer photos from one gallery to another.
-- Overall UX beautification.
-
-2. Updates to the REST API:
-
-- Add authentication and restrict different endpoints like delete to only admins.
-- Allow users to browse to galleries or photos by name instead of ID.
-  - The schema was designed for this, as names are required to be unique.
-- Utilize AWS S3 or Cloudinary as a cloud storage solution instead of storing images to mongoDB.
-- Remove unused endpoint /galleries/:galleryId/photos/:photoId/meta
-
 ## Gratitude
 
-Great appreciation goes to Yogesh Chavan for providing the tutorial I used as a baseline for this project, and to the staff and instructors at Nucamp bootcamp for their support and care.
+Great appreciation goes to Yogesh Chavan for providing the tutorial I used as a baseline for this project.
 
 ## References
 
@@ -158,3 +190,4 @@ create-react-app with a Node server on Heroku: [https://github.com/mars/heroku-c
 
 react-hooks-cheatsheet: [https://react-hooks-cheatsheet.com/examples/fetching-data](https://react-hooks-cheatsheet.com/examples/fetching-data)
 
+Create a Photo Gallery App Using the MERN stack: [https://levelup.gitconnected.com/create-a-photo-gallery-app-using-mern-stack-826d7d926232](https://levelup.gitconnected.com/create-a-photo-gallery-app-using-mern-stack-826d7d926232)
