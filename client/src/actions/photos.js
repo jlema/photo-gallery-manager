@@ -15,11 +15,16 @@ export const beginAddPhoto = (name, caption, data, gallery) => {
           'Content-Type': 'multipart/form-data'
         }
       });
+      dispatch(uploadPhoto());
     } catch (error) {
       error.response && dispatch(getErrors(error.response.data));
     }
   };
 };
+
+export const uploadPhoto = () => ({
+  type: 'UPLOAD_PHOTO'
+});
 
 export const startLoadPhotos = (galleryId) => {
   return async (dispatch) => {
@@ -35,4 +40,20 @@ export const startLoadPhotos = (galleryId) => {
 export const loadPhotos = (photos) => ({
   type: 'LOAD_PHOTOS',
   photos
+});
+
+export const startLoadPhotoMeta = (photoId) => {
+  return async (dispatch) => {
+    try {
+      const meta = await axios.get(`${baseUrl}photos/${photoId}/meta`);
+      dispatch(loadPhotoMeta(meta.data));
+    } catch (error) {
+      error.response && dispatch(getErrors(error.response.data));
+    }
+  }
+}
+
+export const loadPhotoMeta = (meta) => ({
+  type: 'LOAD_PHOTO_META',
+  meta
 });

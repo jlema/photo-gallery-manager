@@ -51,7 +51,7 @@ const Gallery = ({ match, galleries, photos, errors, dispatch }) => {
         {arePhotosLoading ? (
           <div className="loading-msg centered-message">Loading...</div>
         ) : (
-            photos.map((photo) => <Photo name={photo.name} caption={photo.caption} key={photo._id} id={photo._id} />)
+            photos.map((photo) => <Photo name={photo.name} caption={photo.caption} key={photo._id} id={photo._id} loadMeta={false} />)
           )}
       </div>
     </React.Fragment>
@@ -59,9 +59,9 @@ const Gallery = ({ match, galleries, photos, errors, dispatch }) => {
 };
 
 const mapStateToProps = (state) => ({
-  galleries: state.galleries || [],
-  photos: state.photos || [],
-  errors: state.errors || {}
+  galleries: state.galleries.galleries || [],
+  photos: state.photos.photos || [],
+  errors: state.errors.errors || {}
 });
 
 export default connect(mapStateToProps)(Gallery);

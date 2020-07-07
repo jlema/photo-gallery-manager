@@ -8,13 +8,11 @@ import { useInput } from '../utils/useInputHook';
 import { startListGalleries } from '../actions/galleries';
 import { defaultGallery } from '../utils/constants';
 
-const UploadForm = ({ galleries, errors, isAuthenticated, dispatch }) => {
+const UploadForm = ({ galleries, errors, isAuthenticated, isSubmitted, dispatch }) => {
   const { value: name, bind: bindName, reset: resetName } = useInput('');
   const { value: caption, bind: bindCaption, reset: resetCaption } = useInput('');
   const { value: gallery, bind: bindGallery, reset: resetGallery } = useInput(defaultGallery);
-  // const [gallery, setGallery] = useState(null);
   const [data, setData] = useState(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErroMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,7 +37,6 @@ const UploadForm = ({ galleries, errors, isAuthenticated, dispatch }) => {
     if (data) {
       setErroMsg('');
       dispatch(beginAddPhoto(name, caption, data, gallery));
-      setIsSubmitted(true);
       resetName();
       resetCaption();
       resetGallery();
@@ -97,9 +94,10 @@ const UploadForm = ({ galleries, errors, isAuthenticated, dispatch }) => {
 };
 
 const mapStateToProps = (state) => ({
-  galleries: state.galleries || [],
-  errors: state.errors || {},
-  isAuthenticated: state.auth.isAuthenticated || false
+  galleries: state.galleries.galleries || [],
+  errors: state.errors.errors || {},
+  isAuthenticated: state.auth.isAuthenticated || false,
+  isSubmitted: state.photos.isSubmitted || false
 });
 
 export default connect(mapStateToProps)(UploadForm);

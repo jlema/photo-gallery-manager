@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Card } from 'react-bootstrap';
+import { startLoadPhotoMeta } from '../actions/photos';
 
-const Photo = ({ match, name, caption, id }) => {
+const Photo = ({ match, name, caption, id, loadMeta = true, errors, meta, dispatch }) => {
+
   id = id ? id : match.params.photoId;
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (loadMeta) {
+      setIsLoading(true);
+      dispatch(startLoadPhotoMeta(id));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (meta) {
+      setIsLoading(false);
+    }
+  }, [meta]);
+
   return (
     <Card className="photo">
       <Card.Img
@@ -11,12 +29,17 @@ const Photo = ({ match, name, caption, id }) => {
         alt="Photo"
       />
       <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Subtitle>{caption}</Card.Subtitle>
-        <Card.Link href={`/photo/${id}`}>Full Size Photo</Card.Link>
+        <Card.Title>{isLoading ? 'Loading' : meta.name ? meta.name : name}</Card.Title>
+        <Card.Subtitle>{isLoading ? 'Loading' : meta.caption ? meta.caption : caption}</Card.Subtitle>
+        {!loadMeta && <Card.Link href={`/photo/${id}`}>Full Size Photo</Card.Link>}
       </Card.Body>
     </Card>
   );
 };
 
-export default Photo;
+const mapStateToProps = (state) => ({
+  errors: state.errors.errors || {},
+  meta: state.photos.meta || {}
+});
+
+export default connect(mapStateToProps)(Photo);

@@ -1,7 +1,7 @@
 const errorsReducer = (state = {}, action) => {
   switch (action.type) {
     case 'GET_ERRORS':
-      return action.errors;
+      return { ...state, errors: action.errors };
     default:
       return state;
   }

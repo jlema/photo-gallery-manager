@@ -35,8 +35,8 @@ const GalleryList = ({ errors, galleries, dispatch }) => {
 };
 
 const mapStateToProps = (state) => ({
-    galleries: state.galleries || [],
-    errors: state.errors || {}
+    galleries: state.galleries.galleries || [],
+    errors: state.errors.errors || {}
 });
 
 export default connect(mapStateToProps)(GalleryList);
